@@ -14,4 +14,8 @@ export interface ITask {
 export interface ITaskList {
   // task list
   tasks: ITask[];
+  // Loading status
+  loading: boolean;
+  // error message
+  failedMessage: string;
 }

@@ -5,6 +5,7 @@ import { ITask, ITaskList } from '../states/ITask';
 import TaskRow from '../components/TaskRow';
 import { getTaskList } from '../actions/TaskAction';
 import AddTask from '../components/AddTask';
+import ReactLoading from 'react-loading';
 
 const createTaskList = (tasks: ITask[]): JSX.Element[] => {
   return tasks
@@ -22,18 +23,37 @@ const createTaskList = (tasks: ITask[]): JSX.Element[] => {
 
 const TaskListContainer: React.FC = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     getTaskList(dispatch);
-  }, []); // --(a)
-  const taskList = useSelector<IState, ITaskList>(a => a.taskList); // --(b)
+  }, []);
+
+  const taskList = useSelector<IState, ITaskList>(a => a.taskList);
+
   const taskListElement = useMemo(() => {
     return createTaskList(taskList.tasks);
-  }, [taskList.tasks]); // --(c)
+  }, [taskList.tasks]);
+
+  const taskErrorMessage = useMemo(() => {
+    if (taskList?.failedMessage) {
+      <p>{taskList.failedMessage}</p>;
+    } else {
+      return null;
+    }
+  }, [taskList.failedMessage]);
+
   return (
     <div>
       <div>TODO</div>
-      <AddTask />
-      <div>{taskListElement}</div>
+      {taskList.loading ? (
+        <ReactLoading type="spin" />
+      ) : (
+        <>
+          <AddTask />
+          <div>{taskListElement}</div>
+          {taskErrorMessage}
+        </>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useCallback, useMemo, MouseEvent } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTaskAction, toggleCompleteAction } from '../actions/TaskAction';
+import { deleteTask, toggleTask } from '../actions/TaskAction';
 import { ITask } from '../states/ITask';
 
 const TaskRow: React.FC<{ data: ITask }> = props => {
@@ -17,19 +17,21 @@ const TaskRow: React.FC<{ data: ITask }> = props => {
   }, [data.expire]);
 
   const onRowClick = useCallback(() => {
-    dispatch(toggleCompleteAction(data.id));
-  }, [data.id]);
+    toggleTask(data, dispatch);
+  }, [data]);
 
   const onDeleteClick = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
-      dispatch(deleteTaskAction(data.id));
+      deleteTask(data.id, dispatch);
       e.stopPropagation();
     },
     [data.id],
   );
   return (
     <>
-      <div onClick={onRowClick}>{expiration}</div>
+      <div onClick={onRowClick}>
+        {expiration}:{expireString}
+      </div>
       <div>{data?.complete}</div>
       <div>{data?.taskName}</div>
       <div onClick={onDeleteClick}>deleteButton</div>

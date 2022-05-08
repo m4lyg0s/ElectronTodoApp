@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useDispatch } from 'react-redux';
-import { addTaskAction } from '../actions/TaskAction';
+import { addTask } from '../actions/TaskAction';
 
 const AddTask: React.FC = () => {
   const dispatch = useDispatch();
@@ -11,13 +11,14 @@ const AddTask: React.FC = () => {
   const [taskName, setTaskName] = useState<string>('');
 
   const addTaskFunction = useCallback(() => {
-    dispatch(
-      addTaskAction({
+    addTask(
+      {
         complete: false,
         expire,
         taskName,
         id: '',
-      }),
+      },
+      dispatch,
     );
   }, [expire, taskName]);
 
