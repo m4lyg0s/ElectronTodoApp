@@ -33,7 +33,7 @@ const AddTask: React.FC = () => {
     <>
       <div>
         <label>
-          task name
+          タスク名
           <input type="text" value={taskName} onChange={onChangeTaskName} />
         </label>
       </div>

@@ -8,7 +8,10 @@
     "start": "electron ./dist/main.js",
     "build:main": "tsc",
     "build:render": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "package:mac": "webpack && electron-builder --mac --x64",
+    "package:windows": "webpack && electron-builder --win --x64",
+    "package:linux": "webpack && electron-builder --linux --x64"
   },
   "dependencies": {
     "fs-extra": "^10.1.0",
@@ -27,6 +30,7 @@
     "typescript-fsa-reducers": "^1.2.2"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.12",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.5.0",
     "@types/moment": "^2.13.0",
@@ -39,13 +43,19 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "electron": "^18.2.0",
+    "electron-builder": "^23.0.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
     "eslint": "^8.14.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-webpack-plugin": "^3.1.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.0",
+    "jest-styled-components": "^7.0.8",
     "prettier": "^2.6.2",
     "ts-jest": "^28.0.2",
     "ts-loader": "^9.3.0",

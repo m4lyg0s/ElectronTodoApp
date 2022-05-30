@@ -21,7 +21,7 @@ const createWindow = (): void => {
   });
 
   // 読み込む index.html。
-  win.loadFile('./index.html');
+  win.loadFile(path.join(__dirname, './index.html'));
 
   // 開発者ツールを起動する
   win.webContents.openDevTools();
